@@ -301,7 +301,7 @@ def download_profile_posts():
         elif choice == '2':
             page = input("Digite o número da página (0 = primeira página, 50 = segunda, etc.): ")
             posts_process = subprocess.run(['python', os.path.join('codes', 'posts.py'), profile_link, page], 
-                                           capture_output=True, text=True, check=True)
+                                           capture_output=True, text=True, encoding='utf-8', check=True)
             for line in posts_process.stdout.split('\n'):
                 if line.endswith('.json'):
                     json_path = line.strip()
@@ -311,7 +311,7 @@ def download_profile_posts():
             start_page = input("Digite a página inicial (start, 0, 50, 100, etc.): ")
             end_page = input("Digite a página final (ou use end, 300, 350, 400): ")
             posts_process = subprocess.run(['python', os.path.join('codes', 'posts.py'), profile_link, f"{start_page}-{end_page}"], 
-                                           capture_output=True, text=True, check=True)
+                                           capture_output=True, text=True, encoding='utf-8', check=True)
             for line in posts_process.stdout.split('\n'):
                 if line.endswith('.json'):
                     json_path = line.strip()
@@ -325,7 +325,7 @@ def download_profile_posts():
             second_id = second_post.split('/')[-1] if '/' in second_post else second_post
             
             posts_process = subprocess.run(['python', os.path.join('codes', 'posts.py'), profile_link, f"{first_id}-{second_id}"], 
-                                           capture_output=True, text=True, check=True)
+                                           capture_output=True, text=True, encoding='utf-8', check=True)
             for line in posts_process.stdout.split('\n'):
                 if line.endswith('.json'):
                     json_path = line.strip()
@@ -369,7 +369,7 @@ def download_profile_posts_advanced():
             # Baixar todos os posts
             posts_process = subprocess.run(
                 ['python', os.path.join('codes', 'posts.py'), profile_link, 'all'],
-                capture_output=True, text=True, check=True
+                capture_output=True, text=True, encoding='utf-8', check=True
             )
 
             # Extrair caminho do JSON da saída
@@ -379,7 +379,7 @@ def download_profile_posts_advanced():
             page = input("Digite o número da página (0 = primeira página, 50 = segunda, etc.): ")
             posts_process = subprocess.run(
                 ['python', os.path.join('codes', 'posts.py'), profile_link, page],
-                capture_output=True, text=True, check=True
+                capture_output=True, text=True, encoding='utf-8', check=True
             )
             json_path = next((line.strip() for line in posts_process.stdout.split('\n') if line.endswith('.json')), None)
 
@@ -388,7 +388,7 @@ def download_profile_posts_advanced():
             end_page = input("Digite a página final (ou use end, 300, 350, 400): ")
             posts_process = subprocess.run(
                 ['python', os.path.join('codes', 'posts.py'), profile_link, f"{start_page}-{end_page}"],
-                capture_output=True, text=True, check=True
+                capture_output=True, text=True, encoding='utf-8', check=True
             )
             json_path = next((line.strip() for line in posts_process.stdout.split('\n') if line.endswith('.json')), None)
 
@@ -401,7 +401,7 @@ def download_profile_posts_advanced():
 
             posts_process = subprocess.run(
                 ['python', os.path.join('codes', 'posts.py'), profile_link, f"{first_id}-{second_id}"],
-                capture_output=True, text=True, check=True
+                capture_output=True, text=True, encoding='utf-8', check=True
             )
             json_path = next((line.strip() for line in posts_process.stdout.split('\n') if line.endswith('.json')), None)
 
@@ -489,7 +489,7 @@ def main_menu():
         print("4 - Personalizar as configurações do programa")
         print("5 - Sair do programa")
         
-        choice = input("\nDigite sua escolha (1/2/3/4): ")
+        choice = input("\nDigite sua escolha (1/2/3/4/5): ")
         
         if choice == '1':
             download_specific_posts()
@@ -510,3 +510,4 @@ if __name__ == "__main__":
     install_requirements()
     print("Dependências verificadas.\n")
     main_menu()
+    
